@@ -1,0 +1,330 @@
+﻿<Application x:Class="Shipments.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Shipments"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <SolidColorBrush x:Key="colorBody" Color="LightSteelBlue"/>
+        <SolidColorBrush x:Key="colorTableHeader" Color="White"/>
+        <SolidColorBrush x:Key="colorBackground" Color="SteelBlue"/>
+        <SolidColorBrush x:Key="colorMouseOver" Color="Coral"/>
+        <SolidColorBrush x:Key="colorPressed" Color="LightCoral"/>
+        <SolidColorBrush x:Key="colorHeader" Color="AliceBlue"/>
+        <SolidColorBrush x:Key="colorTableBody" Color="Azure"/>
+        <SolidColorBrush x:Key="colorID" Color="Black"/>
+        <SolidColorBrush x:Key="colorMouseOver2" Color="LightSeaGreen"/>
+        <CornerRadius x:Key="NormalCornerRadius">15</CornerRadius>
+
+        <Style x:Key="styleTitle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorBackground}"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+
+        <Style x:Key="styleBorderHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorID}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="styleBorderBody" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorID}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style x:Key="styleBorderTextbox" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{StaticResource colorID}"/>
+
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style x:Key="styleListBox" TargetType="ListBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource colorTableBody}"/>
+        </Style>
+        <Style x:Key="styleListView1" TargetType="ListView">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource colorTableBody}"/>
+            <Setter Property="Height" Value="175"/>
+        </Style>
+        <Style x:Key="styleListView2" TargetType="ListView">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{StaticResource colorTableBody}"/>
+            <Setter Property="Height" Value="150"/>
+        </Style>
+
+        <Style x:Key="styleTableHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorTableHeader}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="center"/>
+        </Style>
+
+        <Style x:Key="styleTableBody" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorBackground}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="center"/>
+        </Style>
+        <Style x:Key="styleTableBody1" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorBackground}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="center"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+        </Style>
+
+        <Style x:Key="styleID" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorID}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="center"/>
+        </Style>
+
+        <Style x:Key="styleTable" TargetType="ListView">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="{Binding}"/>
+            <Setter Property="BorderBrush" Value="{Binding}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="styleTableItem" TargetType="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style x:Key="styleBody" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorBackground}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="center"/>
+        </Style>
+
+        <Style x:Key="styleBorder" TargetType="Border">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Background" Value="{StaticResource colorBody}"/>
+            <Setter Property="CornerRadius" Value="{StaticResource NormalCornerRadius}"/>
+        </Style>
+
+        <Style x:Key="styleButton1" TargetType="Button">
+            <Setter Property="Margin" Value="0,15,0,0"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Foreground" Value="{StaticResource colorTableHeader}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        CornerRadius="5"
+                        Background="{StaticResource colorBackground}">
+                            <StackPanel Orientation="Horizontal">
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                </ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorMouseOver}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorPressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleButton2" TargetType="Button">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        CornerRadius="20"
+                        Background="{StaticResource colorTableHeader}">
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="{TemplateBinding Tag}" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Height="75"
+                                Width="150"
+                                Margin="0,0,0,0"/>
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                </ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorMouseOver2}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleButton3" TargetType="Button">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        CornerRadius="20"
+                        Background="{StaticResource colorTableHeader}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{TemplateBinding Tag}" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                Height="75"
+                                Width="150"/>
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                </ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorBody}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleButton4" TargetType="Button">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+        <Style x:Key="styleButton5" TargetType="Button">
+            <Setter Property="Margin" Value="0,15,0,0"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Foreground" Value="{StaticResource colorTableHeader}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        CornerRadius="5"
+                        Background="{StaticResource colorBackground}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{TemplateBinding Tag}" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Height="25"
+                                Margin="5" />
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10">
+                                </ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorMouseOver}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorTableBody}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="styleMassEjectionLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorBackground}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+
+        <Style x:Key="styleMassEjectionsBorderHeader" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource colorID}"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="styleMassEjectionsButton" TargetType="Button">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Foreground" Value="{StaticResource colorTableHeader}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        CornerRadius="5"
+                        Background="{StaticResource colorBackground}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{TemplateBinding Tag}" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Height="25"
+                                Margin="2" />
+                                <ContentPresenter x:Name="ButtonContentPresenter"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="5">
+                                </ContentPresenter>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorMouseOver}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>
