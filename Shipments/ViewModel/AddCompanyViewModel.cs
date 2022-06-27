@@ -30,7 +30,7 @@ namespace Shipments.ViewModel
         public DelegateCommand Submit { get; set; }
         public void SubmitClick()
         {
-            using (ShipmentsEntities2 db = new ShipmentsEntities2())
+            using (ShipmentsEntities3 db = new ShipmentsEntities3())
             {
                 db.Companies.Add(Company);
                 db.SaveChanges();

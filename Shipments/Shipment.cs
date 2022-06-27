@@ -28,8 +28,8 @@ namespace Shipments
         public string Description { get; set; }
         public Nullable<int> Tracking { get; set; }
     
-        public virtual Company Company { get; set; }
-        public virtual Company Company1 { get; set; }
+        public virtual Company SenderFK { get; set; }
+        public virtual Company RecieverFK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lot> Lots { get; set; }
     }

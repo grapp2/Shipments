@@ -13,10 +13,10 @@ namespace Shipments
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShipmentsEntities2 : DbContext
+    public partial class ShipmentsEntities3 : DbContext
     {
-        public ShipmentsEntities2()
-            : base("name=ShipmentsEntities2")
+        public ShipmentsEntities3()
+            : base("name=ShipmentsEntities3")
         {
         }
     

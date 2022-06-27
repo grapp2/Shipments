@@ -17,8 +17,8 @@ namespace Shipments
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.Shipments = new HashSet<Shipment>();
-            this.Shipments1 = new HashSet<Shipment>();
+            this.Incoming = new HashSet<Shipment>();
+            this.Outgoing = new HashSet<Shipment>();
         }
     
         public int Id { get; set; }
@@ -31,8 +31,8 @@ namespace Shipments
         public string City { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shipment> Shipments { get; set; }
+        public virtual ICollection<Shipment> Incoming { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shipment> Shipments1 { get; set; }
+        public virtual ICollection<Shipment> Outgoing { get; set; }
     }
 }

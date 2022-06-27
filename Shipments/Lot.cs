@@ -15,7 +15,7 @@ namespace Shipments
     public partial class Lot
     {
         public int Id { get; set; }
-        public string Quantity { get; set; }
+        public Nullable<int> Quantity { get; set; }
         public Nullable<int> ItemId { get; set; }
         public Nullable<int> ShipmentId { get; set; }
     

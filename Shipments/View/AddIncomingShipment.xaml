@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Shipments.View.AddShipment"
+﻿<UserControl x:Class="Shipments.View.AddIncomingShipment"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -31,19 +31,11 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="New Incoming Shipment" Style="{StaticResource styleBorderHeader}" Grid.ColumnSpan="2"/>
+                    <TextBlock Text="{Binding ShipmentTitle}" Style="{StaticResource styleBorderHeader}" Grid.ColumnSpan="2"/>
                     <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="1" Text="Description:"/>
                     <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Tracking #:"/>
-                    <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="3" Text="Sender:"/>
                     <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Shipment.Description, Mode=TwoWay}"/>
                     <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Shipment.Tracking, Mode=TwoWay}"/>
-                    <ListView Style="{StaticResource styleListView1}" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Companies, Mode=TwoWay}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
                     <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                         <Button Style="{StaticResource styleButton1}" Content="Submit" Command="{Binding Submit}"/>
                     </StackPanel>
