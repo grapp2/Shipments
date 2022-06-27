@@ -8,13 +8,20 @@ using System.Threading.Tasks;
 
 namespace Shipments.ViewModel
 {
-    internal class AddIncomingShipmentViewModel : ViewModelBase
+    internal class ShipmentViewModel : ViewModelBase
     {
-        public AddIncomingShipmentViewModel(DbList parent, Company Sender)
+        public ShipmentViewModel(DbList parent, Company Sender)
         {
             Shipment = new Shipment { Sender = Sender.Id};
             Parent = parent;
-            ShipmentTitle = "New Incoming " + Sender.Name + " Shipment";
+            ShipmentTitle = "Add Incoming " + Sender.Name + " Shipment";
+            Submit = new DelegateCommand(SubmitClick);
+        }
+        public ShipmentViewModel(DbList parent, Shipment original)
+        {
+            Shipment = original;
+            Parent = parent;
+            ShipmentTitle = "Update Shipment " + Shipment.Description;
             Submit = new DelegateCommand(SubmitClick);
         }
         public DelegateCommand Submit { get; set; }
@@ -25,7 +32,6 @@ namespace Shipments.ViewModel
             set { shipmentTitle = value; OnPropertyChanged(); }
         }
         public DbList Parent { get; set; }
-
         private Shipment shipment;
         public Shipment Shipment { get { return shipment; } set { shipment = value; OnPropertyChanged(); } }
         public void SubmitClick()
@@ -37,5 +43,9 @@ namespace Shipments.ViewModel
             }
             Parent.Update();
         }
+        private string submitVisibility;
+        public string SubmitVisibility { get { return submitVisibility; } set { submitVisibility = value; OnPropertyChanged(); } }
+        private bool saveEnabled;
+        public bool SaveEnabled { get { return saveEnabled; } set { saveEnabled = value; OnPropertyChanged(); } }
     }
 }

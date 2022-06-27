@@ -146,15 +146,18 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddCompanyViewModel.cs" />
-    <Compile Include="ViewModel\AddIncomingShipmentViewModel.cs" />
+    <Compile Include="ViewModel\ShipmentViewModel.cs" />
     <Compile Include="ViewModel\DbList.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AddCompany.xaml.cs">
       <DependentUpon>AddCompany.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddIncomingShipment.xaml.cs">
-      <DependentUpon>AddIncomingShipment.xaml</DependentUpon>
+    <Compile Include="View\Lot.xaml.cs">
+      <DependentUpon>Lot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Shipment.xaml.cs">
+      <DependentUpon>Shipment.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -172,7 +175,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddIncomingShipment.xaml">
+    <Page Include="View\Lot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Shipment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

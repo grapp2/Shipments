@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Shipments.View.AddIncomingShipment"
+﻿<UserControl x:Class="Shipments.View.Shipment"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -36,8 +36,8 @@
                     <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Tracking #:"/>
                     <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Shipment.Description, Mode=TwoWay}"/>
                     <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Shipment.Tracking, Mode=TwoWay}"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                        <Button Style="{StaticResource styleButton1}" Content="Submit" Command="{Binding Submit}"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource styleButton1}" Content="Save" Command="{Binding Submit}" IsEnabled="{Binding SaveEnabled}"/>
                     </StackPanel>
                 </Grid>
             </Border>

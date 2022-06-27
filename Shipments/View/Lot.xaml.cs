@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Shipments.View
 {
     /// <summary>
-    /// Interaction logic for AddShipment.xaml
+    /// Interaction logic for Lot.xaml
     /// </summary>
-    public partial class AddIncomingShipment : UserControl
+    public partial class Lot : UserControl
     {
-        public AddIncomingShipment()
+        public Lot()
         {
             InitializeComponent();
         }

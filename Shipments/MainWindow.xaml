@@ -19,18 +19,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TabControl SelectedIndex="{Binding SelectedIndex}" Background="{Binding Background}">
+        <TabControl>
             <TabItem Header="Incoming">
                 <ListView ItemsSource="{Binding Companies}" Style="{StaticResource styleListBox}" SelectedItem="{Binding Path=SelectedCompany, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <Expander Header="{Binding Company.Name}" IsEnabled="{Binding ExpanderActive}" IsExpanded="{Binding IsExpanded}">
-                                    <ListView ItemsSource="{Binding ShipmentUIs}" MaxHeight="150" SelectedItem="{Binding ActiveShipment}" Width="400">
+                                <Expander Header="{Binding Company.Name}" IsEnabled="{Binding ExpanderActive}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+                                    <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding ShipmentUIs}" MaxHeight="150" SelectedItem="{Binding ActiveShipment}" Width="400">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <Expander Header="{Binding Shipment.Description}" MaxHeight="150" IsEnabled="{Binding IsEnabled}" IsExpanded="{Binding IsExpanded}">
-                                                    <ListView ItemsSource="{Binding Lots}">
+                                                <Expander Header="{Binding Shipment.Description}" MaxHeight="150" IsEnabled="{Binding IsEnabled}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+                                                    <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding Lots}" SelectedItem="{Binding ActiveLot}">
                                                         <ListView.View>
                                                             <GridView>
                                                                 <GridViewColumn Width="150" Header="Item" DisplayMemberBinding="{Binding Lot.Item.Name}"/>
@@ -82,8 +82,8 @@
                 <DataTemplate DataType="{x:Type vm:AddCompanyViewModel}">
                     <views:AddCompany/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:AddIncomingShipmentViewModel}">
-                    <views:AddIncomingShipment/>
+                <DataTemplate DataType="{x:Type vm:ShipmentViewModel}">
+                    <views:Shipment/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

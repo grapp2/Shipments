@@ -6,6 +6,7 @@
     <Application.Resources>
         <SolidColorBrush x:Key="colorBody" Color="LightSteelBlue"/>
         <SolidColorBrush x:Key="colorTableHeader" Color="White"/>
+        <SolidColorBrush x:Key="colorDisabled" Color="LightGray"/>
         <SolidColorBrush x:Key="colorBackground" Color="SteelBlue"/>
         <SolidColorBrush x:Key="colorMouseOver" Color="Coral"/>
         <SolidColorBrush x:Key="colorPressed" Color="LightCoral"/>
@@ -45,6 +46,7 @@
         </Style>
 
         <Style x:Key="styleListBox" TargetType="ListBox">
+            <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="{StaticResource colorTableBody}"/>
         </Style>
@@ -126,7 +128,7 @@
             <Setter Property="CornerRadius" Value="{StaticResource NormalCornerRadius}"/>
         </Style>
 
-        <Style x:Key="styleButton1" TargetType="Button">
+        <Style x:Key="styleButton1" TargetType="Button" x:Name="StyleButton1">
             <Setter Property="Margin" Value="0,15,0,0"/>
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Height" Value="Auto"/>
@@ -152,6 +154,10 @@
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="{StaticResource colorPressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource colorDisabled}"/>
+                                <Setter TargetName="ButtonContentPresenter" Property="TextElement.Foreground" Value="{StaticResource colorID}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
