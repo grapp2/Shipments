@@ -7,8 +7,11 @@
     [Description]  VARCHAR (50) NULL,
     [Tracking]     INT          NULL,
     CONSTRAINT [PK_Shipments] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Shipment_ToCompany] FOREIGN KEY ([Sender]) REFERENCES [dbo].[Companies] ([Id]),
+    CONSTRAINT [FK_Shipment_ToCompany] FOREIGN KEY ([Sender]) REFERENCES [dbo].[Companies] ([Id])
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE,
     CONSTRAINT [FK_Shipment_ToCompany2] FOREIGN KEY ([Receiver]) REFERENCES [dbo].[Companies] ([Id])
+        ON UPDATE CASCADE
 );
 
 

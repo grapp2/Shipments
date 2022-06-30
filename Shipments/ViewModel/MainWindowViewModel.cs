@@ -5,136 +5,10 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using Shipments.Model;
 
 namespace Shipments.ViewModel
 {
-    internal class LotUI
-    {
-        public LotUI(ShipmentUI parent, Lot lot)
-        {
-            Parent = parent;
-            Lot = lot;
-            if (Lot?.Item.Name != "Add New Lot to Shipment") IsEnabled = true;
-            else IsEnabled = false;
-        }
-        public ShipmentUI Parent { get; set; }
-        public Lot Lot { get; set; }
-        public bool IsExpanded { get; set; }
-        public bool IsEnabled { get; set; }
-    }
-    internal class ShipmentUI : ViewModelBase
-    {
-        public ShipmentUI(CompanyUI parent, Shipment shipment)
-        {
-            Lots = new ObservableCollection<LotUI>();
-            Parent = parent;
-            Shipment = shipment;
-            if (shipment.Description != "Add New Shipment") IsEnabled = true;
-            else IsEnabled = false;
-            foreach (Lot lot in shipment.Lots)
-            {
-                Lots.Add(new LotUI(this, lot));
-            }
-            Lots.Add(new LotUI(this, new Lot { Item = new Item { Name = "Add Item" } }));
-        }
-        public ObservableCollection<LotUI> Lots { get; set; }
-        public CompanyUI Parent { get; set; }
-        public Shipment Shipment { get; set; }
-        private LotUI lot;
-        public LotUI ActiveLot { get { return lot; } 
-            set 
-            {
-                if (Clearing == false) Parent.ViewModel.DeselectAll();
-                lot = value;
-                if (ActiveLot?.Lot.Item.Name == "Add Item") Parent.ViewModel.NewItem();
-                OnPropertyChanged();
-            } 
-        }
-        private bool isExpanded;
-        public bool IsExpanded
-        {
-            get
-            {
-                return isExpanded;
-            }
-            set
-            {
-                if (Condensing == false)
-                {
-                    Parent.CondenseShipments();
-                    if (Clearing == false) Parent.ViewModel.DeselectAll();
-                }
-                isExpanded = value;
-                OnPropertyChanged();
-            }
-        }
-        public bool IsEnabled { get; set; }
-        public bool Clearing { get; set; }
-        public bool Condensing { get; set; }
-
-    }
-    internal class CompanyUI : ViewModelBase
-    {
-        public CompanyUI(MainWindowViewModel viewModel, Company company)
-        {
-            Company = company;
-            ShipmentUIs = new ObservableCollection<ShipmentUI>();
-            Clearing = false;
-            ViewModel = viewModel;
-            foreach(Shipment shipment in Company.Incoming)
-            {
-                ShipmentUIs.Add(new ShipmentUI(this, shipment));
-            }
-        }
-        public void CondenseShipments()
-        {
-            foreach (ShipmentUI shipmentUI in ShipmentUIs)
-            {
-                shipmentUI.Condensing = true;
-                shipmentUI.IsExpanded = false;
-                shipmentUI.Condensing = false;
-            }
-        }
-        public ObservableCollection<ShipmentUI> ShipmentUIs { get; set; }
-        public MainWindowViewModel ViewModel { get; set; }
-        public Company Company { get; set; }
-        private bool isExpanded;
-        public bool IsExpanded {
-            get
-            {
-                return isExpanded;
-            }
-            set 
-            {
-                if (Condensing == false)
-                {
-                    ViewModel.CondenseCompanies();
-                    if (Clearing == false) ViewModel.DeselectAll();
-                }
-                isExpanded = value;
-                OnPropertyChanged();
-            } 
-        }
-        
-        public bool ExpanderActive { get; set; }
-        private ShipmentUI activeShipment;
-        public ShipmentUI ActiveShipment
-        {
-            get { return activeShipment; }
-            set {
-                if (Clearing == false)
-                {
-                    ViewModel.DeselectAll();
-                }
-                activeShipment = value;
-                if (activeShipment?.Shipment.Description == "Add New Shipment") ViewModel.NewShipment();
-                OnPropertyChanged();
-            }
-        }
-        public bool Clearing { get; set; }
-        public bool Condensing { get; set; }
-    }
-
     internal class MainWindowViewModel : ViewModelBase, DbList
     {
         public MainWindowViewModel()
@@ -161,7 +35,7 @@ namespace Shipments.ViewModel
             using (ShipmentsEntities3 db = new ShipmentsEntities3())
             {
                 Companies = new ObservableCollection<CompanyUI>();
-                foreach (var company in db.Companies.Include(s => s.Incoming.Select(l => l.Lots)))
+                foreach (var company in db.Companies.Include(s => s.Incoming.Select(l => l.Lots.Select(i => i.Item.Specifications))))
                 {
                     company.Incoming.Add(new Shipment { Description = "Add New Shipment" });
                     CompanyUI comp = new CompanyUI (this, company) { ExpanderActive = true};
@@ -181,7 +55,8 @@ namespace Shipments.ViewModel
             {
                 if (Clearing == false) DeselectAll();
                 selectedCompany = value;
-                if (selectedCompany?.Company.Name == "Add New Company") CurViewModel = new AddCompanyViewModel(this);
+                if (selectedCompany?.Company.Name == "Add New Company") CurViewModel = new CompanyViewModel(this);
+                else if (selectedCompany != null) { CurViewModel = new CompanyViewModel(this, SelectedCompany.Company); }
                 else { CurViewModel = null; }
                 OnPropertyChanged();
             }
@@ -190,9 +65,9 @@ namespace Shipments.ViewModel
         {
             CurViewModel = new ShipmentViewModel(this, GetSender().Company);
         }
-        public void NewItem()
+        public void UpdateShipment(ShipmentUI shipment)
         {
-            CurViewModel = null;
+            CurViewModel = new ShipmentViewModel(this, shipment.Shipment);
         }
         public ShipmentUI GetShipment()
         {
@@ -272,6 +147,14 @@ namespace Shipments.ViewModel
                     shipment.Condensing = false;
                 }
             }
+        }
+        public void NewLot(Shipment shipment)
+        {
+            CurViewModel = new LotViewModel(this, shipment);
+        }
+        public void EditLot(LotUI lot)
+        {
+            CurViewModel = new LotViewModel(this, lot.Lot);
         }
         public bool Clearing { get; set; }
     }

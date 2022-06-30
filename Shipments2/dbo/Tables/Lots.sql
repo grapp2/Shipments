@@ -4,7 +4,7 @@
     [ItemId]     INT        NULL,
     [ShipmentId] INT        NULL,
     CONSTRAINT [PK_Lots] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Lot_ToItem] FOREIGN KEY ([ItemId]) REFERENCES [dbo].[Items] ([Id]),
+    CONSTRAINT [FK_Lot_ToItem] FOREIGN KEY ([ItemId]) REFERENCES [dbo].[Items] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_Lot_ToShipment] FOREIGN KEY ([ShipmentId]) REFERENCES [dbo].[Shipments] ([Id])
 );
 

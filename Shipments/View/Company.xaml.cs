@@ -18,9 +18,9 @@ namespace Shipments.View
     /// <summary>
     /// Interaction logic for AddCompany.xaml
     /// </summary>
-    public partial class AddCompany : UserControl
+    public partial class Company : UserControl
     {
-        public AddCompany()
+        public Company()
         {
             InitializeComponent();
         }

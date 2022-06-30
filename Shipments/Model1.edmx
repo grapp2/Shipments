@@ -4,146 +4,152 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ShipmentsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ShipmentsModelStoreContainer">
-    <EntitySet Name="Companies" EntityType="ShipmentsModel.Store.Companies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Items" EntityType="ShipmentsModel.Store.Items" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Lots" EntityType="ShipmentsModel.Store.Lots" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Shipments" EntityType="ShipmentsModel.Store.Shipments" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Specifications" EntityType="ShipmentsModel.Store.Specifications" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Shipment_ToCompany" Association="ShipmentsModel.Store.FK_Shipment_ToCompany">
-      <End Role="Companies" EntitySet="Companies" />
-      <End Role="Shipments" EntitySet="Shipments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Shipment_ToCompany2" Association="ShipmentsModel.Store.FK_Shipment_ToCompany2">
-      <End Role="Companies" EntitySet="Companies" />
-      <End Role="Shipments" EntitySet="Shipments" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Lot_ToItem" Association="ShipmentsModel.Store.FK_Lot_ToItem">
-      <End Role="Items" EntitySet="Items" />
-      <End Role="Lots" EntitySet="Lots" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Specification_ToItem" Association="ShipmentsModel.Store.FK_Specification_ToItem">
-      <End Role="Items" EntitySet="Items" />
-      <End Role="Specifications" EntitySet="Specifications" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Lot_ToShipment" Association="ShipmentsModel.Store.FK_Lot_ToShipment">
-      <End Role="Shipments" EntitySet="Shipments" />
-      <End Role="Lots" EntitySet="Lots" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Companies">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Address1" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Address2" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Country" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="State" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Zip" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="City" Type="varchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Items">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Description" Type="varchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Lots">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Quantity" Type="int" Nullable="true" />
-    <Property Name="ItemId" Type="int" Nullable="true" />
-    <Property Name="ShipmentId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Shipments">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Sender" Type="int" Nullable="true" />
-    <Property Name="Receiver" Type="int" Nullable="true" />
-    <Property Name="SentDate" Type="datetime" Nullable="true" />
-    <Property Name="ReceivedDate" Type="datetime" Nullable="true" />
-    <Property Name="Description" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Tracking" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Specifications">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Value" Type="float" Nullable="false" />
-    <Property Name="ItemId" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_Shipment_ToCompany">
-    <End Role="Companies" Type="ShipmentsModel.Store.Companies" Multiplicity="0..1" />
-    <End Role="Shipments" Type="ShipmentsModel.Store.Shipments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Companies">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Shipments">
-        <PropertyRef Name="Sender" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Shipment_ToCompany2">
-    <End Role="Companies" Type="ShipmentsModel.Store.Companies" Multiplicity="0..1" />
-    <End Role="Shipments" Type="ShipmentsModel.Store.Shipments" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Companies">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Shipments">
-        <PropertyRef Name="Receiver" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Lot_ToItem">
-    <End Role="Items" Type="ShipmentsModel.Store.Items" Multiplicity="0..1" />
-    <End Role="Lots" Type="ShipmentsModel.Store.Lots" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Items">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Lots">
-        <PropertyRef Name="ItemId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Specification_ToItem">
-    <End Role="Items" Type="ShipmentsModel.Store.Items" Multiplicity="1" />
-    <End Role="Specifications" Type="ShipmentsModel.Store.Specifications" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Items">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Specifications">
-        <PropertyRef Name="ItemId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Lot_ToShipment">
-    <End Role="Shipments" Type="ShipmentsModel.Store.Shipments" Multiplicity="0..1" />
-    <End Role="Lots" Type="ShipmentsModel.Store.Lots" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Shipments">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Lots">
-        <PropertyRef Name="ShipmentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="ShipmentsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Companies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lots">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="ShipmentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sender" Type="int" />
+          <Property Name="Receiver" Type="int" />
+          <Property Name="SentDate" Type="datetime" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Tracking" Type="int" />
+        </EntityType>
+        <EntityType Name="Specifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Lot_ToItem">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lots" Type="Self.Lots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lots">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lot_ToShipment">
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="0..1" />
+          <End Role="Lots" Type="Self.Lots" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shipments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lots">
+              <PropertyRef Name="ShipmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_ToCompany">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Shipment_ToCompany2">
+          <End Role="Companies" Type="Self.Companies" Multiplicity="0..1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Companies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="Receiver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specification_ToItem">
+          <End Role="Items" Type="Self.Items" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Specifications" Type="Self.Specifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specifications">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShipmentsModelStoreContainer">
+          <EntitySet Name="Companies" EntityType="Self.Companies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lots" EntityType="Self.Lots" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specifications" EntityType="Self.Specifications" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lot_ToItem" Association="Self.FK_Lot_ToItem">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Lots" EntitySet="Lots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lot_ToShipment" Association="Self.FK_Lot_ToShipment">
+            <End Role="Shipments" EntitySet="Shipments" />
+            <End Role="Lots" EntitySet="Lots" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_ToCompany" Association="Self.FK_Shipment_ToCompany">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shipment_ToCompany2" Association="Self.FK_Shipment_ToCompany2">
+            <End Role="Companies" EntitySet="Companies" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specification_ToItem" Association="Self.FK_Specification_ToItem">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Specifications" EntitySet="Specifications" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShipmentsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -204,7 +210,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Value" Type="Double" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
           <Property Name="ItemId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Specification_ToItem" FromRole="Specifications" ToRole="Items" />
         </EntityType>

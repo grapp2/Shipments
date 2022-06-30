@@ -21,33 +21,39 @@
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="Incoming">
-                <ListView ItemsSource="{Binding Companies}" Style="{StaticResource styleListBox}" SelectedItem="{Binding Path=SelectedCompany, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
+                <StackPanel HorizontalAlignment="Stretch">
+                    <TextBlock Style="{StaticResource styleMassEjectionsBorderHeader}" Text="Companies" HorizontalAlignment="Left"/>
+                    <ListView ItemsSource="{Binding Companies}" Style="{StaticResource styleListBox}" SelectedItem="{Binding Path=SelectedCompany, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
                                 <Expander Header="{Binding Company.Name}" IsEnabled="{Binding ExpanderActive}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
-                                    <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding ShipmentUIs}" MaxHeight="150" SelectedItem="{Binding ActiveShipment}" Width="400">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <Expander Header="{Binding Shipment.Description}" MaxHeight="150" IsEnabled="{Binding IsEnabled}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
-                                                    <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding Lots}" SelectedItem="{Binding ActiveLot}">
-                                                        <ListView.View>
-                                                            <GridView>
-                                                                <GridViewColumn Width="150" Header="Item" DisplayMemberBinding="{Binding Lot.Item.Name}"/>
-                                                                <GridViewColumn Width="150" Header="Quantity" DisplayMemberBinding="{Binding Lot.Quantity}"/>
-                                                            </GridView>
-                                                        </ListView.View>
-                                                    </ListView>
-                                                </Expander>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-
-                                    </ListView>
+                                    <StackPanel HorizontalAlignment="Stretch">
+                                        <TextBlock Style="{StaticResource styleMassEjectionsBorderHeader}" Text="Shipments" HorizontalAlignment="Left"/>
+                                        <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding ShipmentUIs}" SelectedItem="{Binding ActiveShipment}" Width="400">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Expander Header="{Binding Shipment.Description}" MaxHeight="150" IsEnabled="{Binding IsEnabled}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
+                                                        <StackPanel>
+                                                            <TextBlock Style="{StaticResource styleMassEjectionsBorderHeader}" Text="Lots" HorizontalAlignment="Left"/>
+                                                            <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding Lots}" SelectedItem="{Binding ActiveLot}">
+                                                                <ListView.View>
+                                                                    <GridView>
+                                                                        <GridViewColumn Width="150" Header="Item" DisplayMemberBinding="{Binding Lot.Item.Name}"/>
+                                                                        <GridViewColumn Width="150" Header="Quantity" DisplayMemberBinding="{Binding Lot.Quantity}"/>
+                                                                    </GridView>
+                                                                </ListView.View>
+                                                            </ListView>
+                                                        </StackPanel>
+                                                    </Expander>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </StackPanel>
                                 </Expander>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Outgoing">
                 <ListView  ItemsSource="{Binding Companies}" Style="{StaticResource styleListBox}"  SelectedItem="{Binding Path=SelectedCompany, Mode=TwoWay}">
@@ -79,14 +85,16 @@
 
         <ContentControl Grid.Column="1" Content="{Binding CurViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vm:AddCompanyViewModel}">
-                    <views:AddCompany/>
+                <DataTemplate DataType="{x:Type vm:CompanyViewModel}">
+                    <views:Company/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type vm:ShipmentViewModel}">
                     <views:Shipment/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vm:LotViewModel}">
+                    <views:Lot/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
-        
     </Grid>
 </Window>

@@ -16,6 +16,7 @@ namespace Shipments.ViewModel
             Parent = parent;
             ShipmentTitle = "Add Incoming " + Sender.Name + " Shipment";
             Submit = new DelegateCommand(SubmitClick);
+            SaveEnabled = true;
         }
         public ShipmentViewModel(DbList parent, Shipment original)
         {
@@ -23,6 +24,7 @@ namespace Shipments.ViewModel
             Parent = parent;
             ShipmentTitle = "Update Shipment " + Shipment.Description;
             Submit = new DelegateCommand(SubmitClick);
+            SaveEnabled=false;
         }
         public DelegateCommand Submit { get; set; }
         private string shipmentTitle;

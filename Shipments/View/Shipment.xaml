@@ -7,40 +7,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Border Style="{StaticResource styleBorder}" Grid.Column="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding ShipmentTitle}" Style="{StaticResource styleBorderHeader}" Grid.ColumnSpan="2"/>
-                    <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="1" Text="Description:"/>
-                    <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Tracking #:"/>
-                    <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Shipment.Description, Mode=TwoWay}"/>
-                    <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Shipment.Tracking, Mode=TwoWay}"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                        <Button Style="{StaticResource styleButton1}" Content="Save" Command="{Binding Submit}" IsEnabled="{Binding SaveEnabled}"/>
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource styleBorder}" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding ShipmentTitle}" Style="{StaticResource styleBorderHeader}" Grid.ColumnSpan="2"/>
+                <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="1" Text="Description:"/>
+                <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Tracking #:"/>
+                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Shipment.Description, Mode=TwoWay}"/>
+                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Shipment.Tracking, Mode=TwoWay}"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource styleButton1}" Content="Save" Command="{Binding Submit}" IsEnabled="{Binding SaveEnabled}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
