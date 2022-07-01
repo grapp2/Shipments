@@ -29,7 +29,7 @@
                                 <Expander Header="{Binding Company.Name}" IsEnabled="{Binding ExpanderActive}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
                                     <StackPanel HorizontalAlignment="Stretch">
                                         <TextBlock Style="{StaticResource styleMassEjectionsBorderHeader}" Text="Shipments" HorizontalAlignment="Left"/>
-                                        <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding ShipmentUIs}" SelectedItem="{Binding ActiveShipment}" Width="400">
+                                        <ListView Style="{StaticResource styleListBox}" ItemsSource="{Binding ShipmentUIs}" SelectedItem="{Binding ActiveShipment}" >
                                             <ListView.ItemTemplate>
                                                 <DataTemplate>
                                                     <Expander Header="{Binding Shipment.Description}" MaxHeight="150" IsEnabled="{Binding IsEnabled}" IsExpanded="{Binding IsExpanded, Mode=TwoWay}">
@@ -39,6 +39,7 @@
                                                                 <ListView.View>
                                                                     <GridView>
                                                                         <GridViewColumn Width="150" Header="Item" DisplayMemberBinding="{Binding Lot.Item.Name}"/>
+                                                                        <GridViewColumn Width="150" Header="Description" DisplayMemberBinding="{Binding Lot.Item.Description}"/>
                                                                         <GridViewColumn Width="150" Header="Quantity" DisplayMemberBinding="{Binding Lot.Quantity}"/>
                                                                     </GridView>
                                                                 </ListView.View>

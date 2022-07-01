@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Shipments.Model;
+using Shipments.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,20 @@ namespace Shipments.ViewModel
         public LotViewModel(ShipmentUI shipment)
         {
             Shipment = shipment;
-            Init();
             // setup add specific UI
             Add();
+            Init();
         }
         // Initialize with an existing lot when deleting or updating
         public LotViewModel(LotUI original)
         {
             
             Lot = original;
+            Item = original.Lot.Item;
             Shipment = original.Parent;
-            Init();
             // setup update and delete UI
             UpDel();
+            Init();
         }
         public DelegateCommand Submit { get; set; }
         public DelegateCommand Delete { get; set; }
@@ -118,6 +120,7 @@ namespace Shipments.ViewModel
             Item = Lot.Lot.Item;
             SpecificationViewModel = new SpecificationViewModel(Lot.Lot);
             CurViewModel = SpecificationViewModel;
+            UpdateDescription();
         }
         // sets ui elements for adding a new lot
         private void Add()
@@ -132,12 +135,22 @@ namespace Shipments.ViewModel
             SaveEnabled = true;
             SpecificationViewModel = new SpecificationViewModel(Item);
             CurViewModel = SpecificationViewModel;
+            UpdateDescription();
         }
         private void Init()
         {
             Submit = new DelegateCommand(SubmitClick);
             Delete = new DelegateCommand(DeleteClick);
             Update = new DelegateCommand(UpdateClick);
+            UpdateDescription();
+        }
+        private void UpdateDescription()
+        {
+            Item.Description = Functions.GetInitials(Item.Name);
+            foreach(var specifiaction in Item.Specifications)
+            {
+                Item.Description += "-" + Functions.GetInitials(specifiaction.Name) + specifiaction.Value;
+            }
         }
     }
 }

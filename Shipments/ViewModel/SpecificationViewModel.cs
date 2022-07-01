@@ -107,6 +107,7 @@ namespace Shipments.ViewModel
                     ItemList.Add(item);
                 }
             }
+
         }
         private void Deselect()
         {
