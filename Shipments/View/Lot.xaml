@@ -37,7 +37,7 @@
                 <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="3" Text="Quantity:"/>
                 <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Item.Name, Mode=TwoWay}"/>
                 <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Item.Description, Mode=TwoWay}"/>
-                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="3" Grid.Column="1" Text="{Binding Lot.Quantity, Mode=TwoWay}"/>
+                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="3" Grid.Column="1" Text="{Binding Lot.Lot.Quantity, Mode=TwoWay}"/>
                 <ContentControl Grid.Row="4" Grid.ColumnSpan="2" Content="{Binding CurViewModel}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type vm:SpecificationViewModel}">
@@ -47,6 +47,7 @@
                 </ContentControl>
                 <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     <Button Style="{StaticResource styleButton1}" Content="Add Lot" Command="{Binding Submit}" Visibility="{Binding AddVis}"/>
+                    <Button Style="{StaticResource styleButton1}" Content="Update Lot" Command="{Binding Update}" Visibility="{Binding UpDelVis}"/>
                     <Button Style="{StaticResource styleDelButton}" Content="Delete" Command="{Binding Delete}" Visibility="{Binding UpDelVis}"/>
                 </StackPanel>
             </Grid>

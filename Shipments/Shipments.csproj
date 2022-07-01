@@ -150,6 +150,7 @@
     <Compile Include="Specification.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utility\Functions.cs" />
     <Compile Include="ViewModel\CompanyViewModel.cs" />
     <Compile Include="ViewModel\LotViewModel.cs" />
     <Compile Include="ViewModel\ShipmentViewModel.cs" />

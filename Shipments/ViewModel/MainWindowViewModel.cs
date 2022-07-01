@@ -34,14 +34,30 @@ namespace Shipments.ViewModel
         {
             using (ShipmentsEntities3 db = new ShipmentsEntities3())
             {
-                Companies = new ObservableCollection<CompanyUI>();
-                foreach (var company in db.Companies.Include(s => s.Incoming.Select(l => l.Lots.Select(i => i.Item.Specifications))))
+                var query = db.Companies.Include(s => s.Incoming.Select(l => l.Lots.Select(i => i.Item.Specifications))).ToList();
+                // if companies is empty add all companies in
+                if (Companies == null)
                 {
-                    company.Incoming.Add(new Shipment { Description = "Add New Shipment" });
-                    CompanyUI comp = new CompanyUI (this, company) { ExpanderActive = true};
-                    Companies.Add(comp);
+                    Companies = new ObservableCollection<CompanyUI>();
+                    foreach (Company company in query)
+                    {
+                        company.Incoming.Add(new Shipment() { Description = "Add New Shipment" });
+                        Companies.Add(new CompanyUI(this, company) { ExpanderActive = true });
+                    }
+                    Companies.Add(new CompanyUI(this, new Company { Name = "Add New Company" }) { ExpanderActive = false });
                 }
-                Companies.Add(new CompanyUI (this, new Company { Name = "Add New Company" }) { ExpanderActive = false });
+                else
+                {
+                    for (int i = 0; i < query.Count; i++)
+                    {
+                        if (query[i] != Companies[i].Company)
+                        {
+                            query[i].Incoming.Add(new Shipment() { Description = "Add New Shipment" });
+                            Companies[i].Company = query[i];
+                            Companies[i].ExpanderActive = true;
+                        }
+                    }
+                }
             }
         }
 
@@ -55,19 +71,23 @@ namespace Shipments.ViewModel
             {
                 if (Clearing == false) DeselectAll();
                 selectedCompany = value;
-                if (selectedCompany?.Company.Name == "Add New Company") CurViewModel = new CompanyViewModel(this);
-                else if (selectedCompany != null) { CurViewModel = new CompanyViewModel(this, SelectedCompany.Company); }
+                if (selectedCompany?.Company.Name == "Add New Company")
+                {
+                    CurViewModel = new CompanyViewModel(this);
+                    CondenseCompanies();
+                }
+                else if (selectedCompany != null) CurViewModel = new CompanyViewModel(this, SelectedCompany.Company);
                 else { CurViewModel = null; }
                 OnPropertyChanged();
             }
         }
         public void NewShipment()
         {
-            CurViewModel = new ShipmentViewModel(this, GetSender().Company);
+            CurViewModel = new ShipmentViewModel(this, GetSender());
         }
         public void UpdateShipment(ShipmentUI shipment)
         {
-            CurViewModel = new ShipmentViewModel(this, shipment.Shipment);
+            CurViewModel = new ShipmentViewModel(this, shipment);
         }
         public ShipmentUI GetShipment()
         {
@@ -148,13 +168,13 @@ namespace Shipments.ViewModel
                 }
             }
         }
-        public void NewLot(Shipment shipment)
+        public void NewLot(ShipmentUI shipment)
         {
-            CurViewModel = new LotViewModel(this, shipment);
+            CurViewModel = new LotViewModel(shipment);
         }
         public void EditLot(LotUI lot)
         {
-            CurViewModel = new LotViewModel(this, lot.Lot);
+            CurViewModel = new LotViewModel(lot);
         }
         public bool Clearing { get; set; }
     }

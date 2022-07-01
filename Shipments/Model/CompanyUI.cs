@@ -10,29 +10,29 @@ namespace Shipments.Model
 {
     internal class CompanyUI : ViewModelBase
     {
+        // initializes company UI with existing company data
         public CompanyUI(MainWindowViewModel viewModel, Company company)
         {
             Company = company;
             ShipmentUIs = new ObservableCollection<ShipmentUI>();
             Clearing = false;
             ViewModel = viewModel;
-            foreach (Shipment shipment in Company.Incoming)
-            {
-                ShipmentUIs.Add(new ShipmentUI(this, shipment));
-            }
         }
-        public void CondenseShipments()
-        {
-            foreach (ShipmentUI shipmentUI in ShipmentUIs)
-            {
-                shipmentUI.Condensing = true;
-                shipmentUI.IsExpanded = false;
-                shipmentUI.Condensing = false;
-            }
+        private ObservableCollection<ShipmentUI> shipmentUIs;
+        public ObservableCollection<ShipmentUI> ShipmentUIs {
+            get { return shipmentUIs; }
+            set { shipmentUIs = value; OnPropertyChanged(); }
         }
-        public ObservableCollection<ShipmentUI> ShipmentUIs { get; set; }
         public MainWindowViewModel ViewModel { get; set; }
-        public Company Company { get; set; }
+        private Company company;
+        public Company Company
+        {
+            get { return company; }
+            set { 
+                company = value;
+                OnPropertyChanged();
+            }
+        }
         private bool isExpanded;
         public bool IsExpanded
         {
@@ -48,11 +48,16 @@ namespace Shipments.Model
                     if (Clearing == false) ViewModel.DeselectAll();
                 }
                 isExpanded = value;
+                if (isExpanded == true) UpdateShipments();
                 OnPropertyChanged();
             }
         }
 
-        public bool ExpanderActive { get; set; }
+        private bool expanderActive;
+        public bool ExpanderActive {
+            get { return expanderActive; }
+            set { expanderActive = value; OnPropertyChanged(); } 
+        }
         private ShipmentUI activeShipment;
         public ShipmentUI ActiveShipment
         {
@@ -64,12 +69,43 @@ namespace Shipments.Model
                     ViewModel.DeselectAll();
                 }
                 activeShipment = value;
-                if (activeShipment?.Shipment.Description == "Add New Shipment") ViewModel.NewShipment();
+                if (activeShipment?.Shipment.Description == "Add New Shipment")
+                {
+                    ViewModel.NewShipment();
+                    CondenseShipments();
+                }
                 else if (activeShipment != null) ViewModel.UpdateShipment(activeShipment);
                 OnPropertyChanged();
             }
         }
         public bool Clearing { get; set; }
         public bool Condensing { get; set; }
+        public void UpdateShipments()
+        {
+            Company company = null;
+            using (ShipmentsEntities3 db = new ShipmentsEntities3())
+            {
+                company = db.Companies.Find(this.Company.Id);
+                if (company == null) return;
+                // update the Lots with new companies loaded
+                ShipmentUIs = new ObservableCollection<ShipmentUI>();
+
+                foreach (var ship in company.Incoming)
+                {
+                    ShipmentUIs.Add(new ShipmentUI(this, ship));
+                }
+                ShipmentUIs.Add(new ShipmentUI(this, new Shipment() { Description="Add New Shipment" }));
+            }
+        }
+        public void CondenseShipments()
+        {
+            foreach (ShipmentUI shipmentUI in ShipmentUIs)
+            {
+                shipmentUI.Condensing = true;
+                shipmentUI.IsExpanded = false;
+                shipmentUI.Condensing = false;
+            }
+        }
+
     }
 }

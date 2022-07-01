@@ -36,7 +36,9 @@
                 <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Shipment.Description, Mode=TwoWay}"/>
                 <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Shipment.Tracking, Mode=TwoWay}"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource styleButton1}" Content="Save" Command="{Binding Submit}" IsEnabled="{Binding SaveEnabled}"/>
+                    <Button Style="{StaticResource styleButton1}" Content="Add Shipment" Command="{Binding Add}" Visibility="{Binding AddVis}"/>
+                    <Button Style="{StaticResource styleButton1}" Content="Update Shipment" Command="{Binding Update}" Visibility="{Binding UpDelVis}"/>
+                    <Button Style="{StaticResource styleDelButton}" Content="Delete" Command="{Binding Delete}" Visibility="{Binding UpDelVis}"/>
                 </StackPanel>
             </Grid>
         </Border>

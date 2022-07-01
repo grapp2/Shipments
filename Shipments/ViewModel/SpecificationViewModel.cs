@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,10 @@ namespace Shipments.ViewModel
             Item = lot.Item;
             Specifications = new ObservableCollection<Specification>(Item.Specifications);
             Init();
-            UpDel();
+            Add();
         }
         private Item Item { get; set; }
+        public ObservableCollection<Item> ItemList { get; set; }
         private ObservableCollection<Specification> specifications;
         public ObservableCollection<Specification> Specifications
         {
@@ -54,7 +56,7 @@ namespace Shipments.ViewModel
         private void AddSpec()
         { 
             Specifications.Add(NewSpec);
-            NewSpec = new Specification() { Item = Item};
+            NewSpec = new Specification() { ItemId = Item.Id};
         }
         private void DeleteSpec()
         {
@@ -90,19 +92,27 @@ namespace Shipments.ViewModel
             upDelMode = false;
             AddVis = "Visible";
             UpDelVis = "Collapsed";
-            NewSpec = new Specification() { Item = Item };
+            NewSpec = new Specification() { ItemId = Item.Id };
         }
         private void Init()
         {
             DelegateAddSpec = new DelegateCommand(AddSpec);
             DelegateDeleteSpec = new DelegateCommand(DeleteSpec);
             DelegateDeselect = new DelegateCommand(Deselect);
+            ItemList = new ObservableCollection<Item>();
+            using (ShipmentsEntities3 db = new ShipmentsEntities3())
+            {
+                foreach (var item in db.Items.Include(s => s.Specifications))
+                {
+                    ItemList.Add(item);
+                }
+            }
         }
         private void Deselect()
         {
             if (!upDelMode) return;
             ActiveSpec = null;
-            NewSpec = new Specification() { Item = Item };
+            NewSpec = new Specification() { ItemId = Item.Id };
         }
         private bool upDelMode;
         private string instruction;
