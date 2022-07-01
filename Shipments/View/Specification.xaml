@@ -13,7 +13,6 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
                 <TextBlock Style="{StaticResource styleBorderHeader}" Text="Specifications"/>
@@ -62,7 +61,7 @@
                     </Grid>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Column="1">
+            <!--<StackPanel Grid.Column="1">
                 <TextBlock Style="{StaticResource styleID}" Text="Copy Item Specifications"/>
                 <ListView Style="{StaticResource styleListView1}" ItemsSource="{Binding ItemList}">
                     <ListView.ItemTemplate>
@@ -72,11 +71,18 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <ItemsControl ItemsSource="{Binding Specifications}" Grid.Column="1">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"/>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="{Binding Value}" Grid.Column="1"/>
+                                            </Grid>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -84,7 +90,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
         
     </Border>
