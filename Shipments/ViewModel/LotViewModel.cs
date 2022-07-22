@@ -51,6 +51,8 @@ namespace Shipments.ViewModel
         }
         public void SubmitClick()
         {
+            Lot.Lot.Item.Specifications = SpecificationViewModel.Specifications;
+            Lot.UpdateDescription();
             using (var db = new ShipmentsEntities3())
             {
                 db.Items.Attach(Lot.Lot.Item);
@@ -68,6 +70,7 @@ namespace Shipments.ViewModel
         }
         public void UpdateClick()
         {
+            Lot.UpdateDescription();
             using (var db = new ShipmentsEntities3())
             {
                 db.Items.Attach(Lot.Lot.Item);
@@ -91,7 +94,7 @@ namespace Shipments.ViewModel
             using (var db = new ShipmentsEntities3())
             {
                 db.Lots.Attach(Lot.Lot);
-                db.Entry(Lot).State = System.Data.Entity.EntityState.Deleted;
+                db.Entry(Lot.Lot).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }
             Shipment.UpdateLots();
@@ -118,9 +121,8 @@ namespace Shipments.ViewModel
             LotTitle = "Edit " + Lot.Lot.Item.Name;
             // get item from existing lot
             Item = Lot.Lot.Item;
-            SpecificationViewModel = new SpecificationViewModel(Lot.Lot);
+            SpecificationViewModel = new SpecificationViewModel(Lot);
             CurViewModel = SpecificationViewModel;
-            UpdateDescription();
         }
         // sets ui elements for adding a new lot
         private void Add()
@@ -135,22 +137,12 @@ namespace Shipments.ViewModel
             SaveEnabled = true;
             SpecificationViewModel = new SpecificationViewModel(Item);
             CurViewModel = SpecificationViewModel;
-            UpdateDescription();
         }
         private void Init()
         {
             Submit = new DelegateCommand(SubmitClick);
             Delete = new DelegateCommand(DeleteClick);
             Update = new DelegateCommand(UpdateClick);
-            UpdateDescription();
-        }
-        private void UpdateDescription()
-        {
-            Item.Description = Functions.GetInitials(Item.Name);
-            foreach(var specifiaction in Item.Specifications)
-            {
-                Item.Description += "-" + Functions.GetInitials(specifiaction.Name) + specifiaction.Value;
-            }
         }
     }
 }

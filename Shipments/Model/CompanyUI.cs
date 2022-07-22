@@ -72,7 +72,6 @@ namespace Shipments.Model
                 if (activeShipment?.Shipment.Description == "Add New Shipment")
                 {
                     ViewModel.NewShipment();
-                    CondenseShipments();
                 }
                 else if (activeShipment != null) ViewModel.UpdateShipment(activeShipment);
                 OnPropertyChanged();

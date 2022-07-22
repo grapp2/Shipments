@@ -10,6 +10,7 @@ namespace Shipments.Utility
     {
         public static string GetInitials(string input)
         {
+            if (input == null) return "";
             string initials = "";
             var a = input.Split(' ');
             foreach(var s in a)

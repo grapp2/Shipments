@@ -1,4 +1,5 @@
-﻿using Shipments.ViewModel;
+﻿using Shipments.Utility;
+using Shipments.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,14 @@ namespace Shipments.Model
                 OnPropertyChanged();
             }
         }
-        public bool IsExpanded { get; set; }
-        public bool IsEnabled { get; set; }
+
+        public void UpdateDescription()
+        {
+            Lot.Item.Description = Functions.GetInitials(Lot.Item.Name);
+            foreach (var specification in Lot.Item.Specifications)
+            {
+                Lot.Item.Description += "-" + Functions.GetInitials(specification.Name) + specification.Value;
+            }
+        }
     }
 }

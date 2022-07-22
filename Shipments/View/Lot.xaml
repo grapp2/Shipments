@@ -33,11 +33,9 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding LotTitle}" Style="{StaticResource styleBorderHeader}" Grid.ColumnSpan="2"/>
                 <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="1" Text="Item Name:"/>
-                <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Description:"/>
-                <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="3" Text="Quantity:"/>
+                <TextBlock Style="{StaticResource styleBorderBody}" Grid.Row="2" Text="Quantity:"/>
                 <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="1" Grid.Column="1" Text="{Binding Item.Name, Mode=TwoWay}"/>
-                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Item.Description, Mode=TwoWay}"/>
-                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="3" Grid.Column="1" Text="{Binding Lot.Lot.Quantity, Mode=TwoWay}"/>
+                <TextBox Style="{StaticResource styleBorderTextbox}" Grid.Row="2" Grid.Column="1" Text="{Binding Lot.Lot.Quantity, Mode=TwoWay}"/>
                 <ContentControl Grid.Row="4" Grid.ColumnSpan="2" Content="{Binding CurViewModel}">
                     <ContentControl.Resources>
                         <DataTemplate DataType="{x:Type vm:SpecificationViewModel}">

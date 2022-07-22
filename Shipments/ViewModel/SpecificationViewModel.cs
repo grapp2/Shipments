@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Shipments.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,13 +20,15 @@ namespace Shipments.ViewModel
             Init();
             Add();
         }
-        public SpecificationViewModel(Lot lot)
+        public SpecificationViewModel(LotUI lot)
         {
-            Item = lot.Item;
+            Parent = lot;
+            Item = lot.Lot.Item;
             Specifications = new ObservableCollection<Specification>(Item.Specifications);
             Init();
             Add();
         }
+        private LotUI Parent { get; set; }
         private Item Item { get; set; }
         public ObservableCollection<Item> ItemList { get; set; }
         private ObservableCollection<Specification> specifications;
@@ -60,6 +63,12 @@ namespace Shipments.ViewModel
         }
         private void DeleteSpec()
         {
+            using (ShipmentsEntities3 db = new ShipmentsEntities3())
+            {
+                db.Specifications.Attach(ActiveSpec);
+                db.Entry(ActiveSpec).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
             Specifications.Remove(ActiveSpec);
         }
         private string addVis;
